@@ -8,6 +8,7 @@ RUN DEBIAN_FRONTEND=noninteractive apt update && apt install -y \
     software-properties-common \
     ffmpeg \
     curl \
+    wget \
     ca-certificates \
     && add-apt-repository ppa:deadsnakes/ppa -y \
     && apt update \
@@ -19,10 +20,9 @@ RUN LATEST_VERSION=$(curl -s https://api.github.com/repos/yt-dlp/yt-dlp/releases
     curl -L "https://github.com/${ORG_NAME}/${REPO_NAME}/releases/download/${LATEST_VERSION}/${FILE_NAME}" -o /usr/local/bin/${FILE_NAME} && \
     chmod a+rx /usr/local/bin/${FILE_NAME}
 
-RUN python3.13 -m ensurepip --default-pip \
-    && python3.13 -m pip install --upgrade pip \
+RUN wget https://bootstrap.pypa.io/get-pip.py \
+    && python get-pip.py \
     && pip install --no-cache-dir requests \
-    && ln -sf /usr/bin/python3.13 /usr/bin/python3 \
-    && ln -sf /usr/bin/python3.13 /usr/bin/python
+    && rm get-pip.py
 
 WORKDIR /workspace
