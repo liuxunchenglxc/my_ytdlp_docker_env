@@ -3,8 +3,11 @@ FROM ghcr.io/denoland/deno:ubuntu
 ARG ORG_NAME=yt-dlp
 ARG REPO_NAME=yt-dlp
 ARG FILE_NAME=yt-dlp_linux
-ARG LATEST_VERSION=$(curl -s https://api.github.com/repos/yt-dlp/yt-dlp/releases | grep -m 1 "tag_name" | cut -d'"' -f4)
-ADD https://github.com/${ORG_NAME}/${REPO_NAME}/releases/download/v${LATEST_VERSION}/${FILE_NAME} /usr/local/bin/${FILE_NAME}
+
+RUN LATEST_VERSION=$(curl -s https://api.github.com/repos/yt-dlp/yt-dlp/releases | grep -m 1 "tag_name" | cut -d'"' -f4) && \
+    echo "最新版本是: ${LATEST_VERSION}" && \
+    curl -L "https://github.com/${ORG_NAME}/${REPO_NAME}/releases/download/${LATEST_VERSION}/${FILE_NAME}" -o /usr/local/bin/${FILE_NAME} && \
+    chmod a+rx /usr/local/bin/${FILE_NAME}
 
 RUN DEBIAN_FRONTEND=noninteractive apt update && apt install -y \
     python3 \
@@ -12,8 +15,7 @@ RUN DEBIAN_FRONTEND=noninteractive apt update && apt install -y \
     ffmpeg \
     curl \
     ca-certificates \
-    && rm -rf /var/lib/apt/lists/* \
-    && chmod +x /usr/local/bin/yt-dlp
+    && rm -rf /var/lib/apt/lists/*
 
 RUN pip install --no-cache-dir requests
 
