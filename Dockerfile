@@ -3,7 +3,7 @@ FROM ghcr.io/denoland/deno:ubuntu
 ARG ORG_NAME=yt-dlp
 ARG REPO_NAME=yt-dlp
 ARG FILE_NAME=yt-dlp_linux
-ARG LATEST_VERSION=$(curl -s https://api.github.com/repos/${ORG_NAME}/${REPO_NAME}/releases/latest | grep "tag_name" | cut -d'v' -f2 | cut -d'"' -f1)
+ARG LATEST_VERSION=$(curl -s https://api.github.com/repos/yt-dlp/yt-dlp/releases | grep -m 1 "tag_name" | cut -d'"' -f4)
 ADD https://github.com/${ORG_NAME}/${REPO_NAME}/releases/download/v${LATEST_VERSION}/${FILE_NAME} /usr/local/bin/${FILE_NAME}
 
 RUN DEBIAN_FRONTEND=noninteractive apt update && apt install -y \
