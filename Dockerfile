@@ -24,8 +24,6 @@ RUN wget https://bootstrap.pypa.io/get-pip.py \
     && ln -sf /usr/bin/python3.13 /usr/bin/python3 \
     && ln -sf /usr/bin/python3.13 /usr/bin/python \
     && python get-pip.py \
-    && ln -sf /usr/bin/pip3.13 /usr/local/bin/pip3 \
-    && ln -sf /usr/bin/pip3.13 /usr/local/bin/pip \
     && pip install --no-cache-dir requests \
     && rm get-pip.py
 
