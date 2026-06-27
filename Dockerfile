@@ -9,6 +9,7 @@ RUN DEBIAN_FRONTEND=noninteractive apt update && apt install -y \
     ffmpeg \
     curl \
     wget \
+    git \
     ca-certificates \
     && add-apt-repository ppa:deadsnakes/ppa -y \
     && apt update \
