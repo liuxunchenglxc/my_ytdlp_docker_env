@@ -10,6 +10,7 @@ RUN DEBIAN_FRONTEND=noninteractive apt update && apt install -y \
     curl \
     wget \
     git \
+    aria2 \
     ca-certificates \
     && add-apt-repository ppa:deadsnakes/ppa -y \
     && apt update \
