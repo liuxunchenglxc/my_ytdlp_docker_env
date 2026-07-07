@@ -4,6 +4,10 @@ ARG ORG_NAME=yt-dlp
 ARG REPO_NAME=yt-dlp
 ARG FILE_NAME=yt-dlp_linux
 
+# https://github.com/Brainicism/bgutil-ytdlp-pot-provider
+ARG YT_POT_VERSION=1.3.1
+ENV YT_POT_VERSION=$YT_POT_VERSION
+
 RUN DEBIAN_FRONTEND=noninteractive apt update && apt install -y \
     software-properties-common \
     ffmpeg \
@@ -28,5 +32,12 @@ RUN wget https://bootstrap.pypa.io/get-pip.py \
     && python get-pip.py \
     && pip install --no-cache-dir requests \
     && rm get-pip.py
+
+RUN git clone --depth 1 --single-branch --branch ${YT_POT_VERSION} https://github.com/Brainicism/bgutil-ytdlp-pot-provider.git /bgutil-ytdlp-pot-provider \
+    && cd /bgutil-ytdlp-pot-provider/server/ \
+    deno install --allow-scripts=npm:canvas --frozen
+
+RUN mkdir -p /etc/yt-dlp-plugins \
+    && curl -L "https://github.com/Brainicism/bgutil-ytdlp-pot-provider/releases/download/${YT_POT_VERSION}/bgutil-ytdlp-pot-provider.zip " -o /etc/yt-dlp-plugins/bgutil-ytdlp-pot-provider.zip
 
 WORKDIR /workspace
