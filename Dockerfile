@@ -33,7 +33,7 @@ RUN wget https://bootstrap.pypa.io/get-pip.py \
     && pip install --no-cache-dir requests \
     && rm get-pip.py
 
-RUN git clone --depth 1 --single-branch --branch ${YT_POT_VERSION} https://github.com/Brainicism/bgutil-ytdlp-pot-provider.git /bgutil-ytdlp-pot-provider \
+RUN git clone --single-branch --branch ${YT_POT_VERSION} https://github.com/Brainicism/bgutil-ytdlp-pot-provider.git /bgutil-ytdlp-pot-provider \
     && cd /bgutil-ytdlp-pot-provider/server/ \
     deno install --allow-scripts=npm:canvas --frozen
 
