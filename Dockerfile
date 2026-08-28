@@ -5,7 +5,7 @@ ARG REPO_NAME=yt-dlp
 ARG FILE_NAME=yt-dlp_linux
 
 # https://github.com/Brainicism/bgutil-ytdlp-pot-provider
-ARG YT_POT_VERSION=1.3.1
+ARG YT_POT_VERSION=1.3.2
 ENV YT_POT_VERSION=$YT_POT_VERSION
 
 RUN DEBIAN_FRONTEND=noninteractive apt update && apt install -y \
